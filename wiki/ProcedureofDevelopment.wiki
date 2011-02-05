@@ -1,0 +1,30 @@
+= 開発の流れ =
+
+  # 要件・目的の整理
+    # ユースケース／アクティビティ（業務内容）の整理を行う
+      * ユースケース図
+      * アクション図
+  # 機能の概略・イメージの整理
+    # 機能の概略を作成し、分類後、図または表を用いて整理する
+      * DFD(Data Flow Diagram)
+      * シーケンス図
+      * 機能一覧
+  # フロントエンド・バックエンドのデータモデルの設計
+    # 画面UI(User Interface)を設計する
+      * 画面定義書
+    # テーブル・ファイルレイアウトを定義する
+      * テーブル定義書
+      * ファイル定義書
+  # サービスの概略・イメージの整理
+    # 機能の概略を作成し、分類後、図または表を用いて整理する
+      * DFD(Data Flow Diagram)
+      * シーケンス図
+      * 機能一覧
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
