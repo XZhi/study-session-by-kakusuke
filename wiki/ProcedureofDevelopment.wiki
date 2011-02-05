@@ -1,5 +1,6 @@
 = 開発の流れ =
-
+当プロジェクトでは以下のフェーズ・アウトプットを定義します
+==要件定義フェーズ==
   # 要件・目的の整理
     # ユースケース／アクティビティ（業務内容）の整理を行う
       * ユースケース図
@@ -9,22 +10,36 @@
       * DFD(Data Flow Diagram)
       * シーケンス図
       * 機能一覧
+==機能設計フェーズ==
   # フロントエンド・バックエンドのデータモデルの設計
     # 画面UI(User Interface)を設計する
-      * 画面定義書
+      * 画面定義書→(View Layer/Presentation Layer)
     # テーブル・ファイルレイアウトを定義する
-      * テーブル定義書
-      * ファイル定義書
-  # サービスの概略・イメージの整理
-    # 機能の概略を作成し、分類後、図または表を用いて整理する
-      * DFD(Data Flow Diagram)
-      * シーケンス図
-      * 機能一覧
+      * テーブル定義書→(Persistence Layer/Model Layer)
+      * ファイル定義書→(Persistence Layer/Model Layer)
+==処理設計フェーズ==
+  # Business Serviceの設計
+    # Business Serviceの概略およびインターフェースの設計
+      * サービス仕様書→(Business Process Layer/Interface Layer)
+  # Business Componentの設計
+    # Business Componentの概略およびインターフェースの設計
+      * コンポーネント仕様書→(Business Logic Layer)
+  # UIの設計
+    # 画面UI部品の処理内容の設計
+      * アクション仕様書→(Request Layer/Presentation Layer)
+      * UIコンポーネント仕様書→(Request Layer)
+==テスト設計フェーズ==
+  # テスト設計
+    # 処理設計フェーズでのアウトプットからテスト計画書・設計書を作成する
+      * テスト計画表
+      * 単体テスト設計書(各ソースコードモジュールレベルのテスト)
+      * 結合テスト設計書(各ソースコードモジュール間結合のテスト)
+      * 統合テスト設計書(画面－サービス－ＤＢ間結合のテスト)
+==開発==
+  # 実装
+    # 処理設計フェーズとテスト設計フェーズでのアウトプットからソースコードを作成する
+      * 実装モジュール(実装者)
+      * スタブモジュール(実装者と同一)
+      * モックモジュール(実装者と同一)
+      * テストモジュール(実装者と異なる)
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
