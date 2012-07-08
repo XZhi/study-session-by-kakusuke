@@ -40,5 +40,6 @@
 	</build>
 	<modules>
 		<module>nucleus.core</module>
+		<module>nucleus.sca</module>
 	</modules>
 </project>
