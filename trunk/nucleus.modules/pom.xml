@@ -41,5 +41,6 @@
 	<modules>
 		<module>nucleus.core</module>
 		<module>nucleus.sca</module>
+		<module>nucleus.sca-maven-plugin</module>
 	</modules>
 </project>
