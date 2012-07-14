@@ -44,7 +44,7 @@ public class ClassScanner {
 				handler.initialize();
 			}
 			for (JavaFileObject javaFileObject : standardJavaFileManager.list(StandardLocation.CLASS_PATH, "", kind, false)) {
-				Class<?> clazz = Class.forName(javaFileObject.getName());
+				Class<?> clazz = Class.forName(javaFileObject.getName().replace(".class", ""));
 				for (Handler handler : handlers) {
 					if (handler.check(clazz))
 						handler.handle(clazz);
