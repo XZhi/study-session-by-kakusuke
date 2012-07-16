@@ -3,66 +3,101 @@
  */
 package com.ss4o.nucleus.sca.maven.plugin;
 
-import java.util.HashSet;
+import java.io.IOException;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.tools.DiagnosticCollector;
-import javax.tools.JavaCompiler;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.StandardLocation;
-import javax.tools.ToolProvider;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.BeanDefinitionStoreException;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.ScannedGenericBeanDefinition;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
+import org.springframework.core.type.classreading.MetadataReader;
+import org.springframework.core.type.classreading.MetadataReaderFactory;
 
 /**
  * @author tadasuke-win7
  * 
  */
 public class ClassScanner {
-	private Handler[] handlers;
-	private StandardJavaFileManager standardJavaFileManager;
-	private Set<JavaFileObject.Kind> kind;
+	private Set<Visitor> visitors = new LinkedHashSet<ClassScanner.Visitor>();
 
-	@SuppressWarnings("serial")
-	public ClassScanner(Handler... handlers) {
-		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
+	static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
 
-		standardJavaFileManager = compiler.getStandardFileManager(diagnostics, null, null);
+	protected final Log logger = LogFactory.getLog(getClass());
 
-		kind = new HashSet<JavaFileObject.Kind>() {
-			{
-				add(JavaFileObject.Kind.CLASS);
-			}
-		};
+	private ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
 
-		this.handlers = handlers;
-	}
+	private MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(this.resourcePatternResolver);
 
-	public void scan() {
-		try {
-			for (Handler handler : handlers) {
-				handler.initialize();
-			}
-			for (JavaFileObject javaFileObject : standardJavaFileManager.list(StandardLocation.CLASS_PATH, "", kind, false)) {
-				Class<?> clazz = Class.forName(javaFileObject.getName().replace(".class", ""));
-				for (Handler handler : handlers) {
-					if (handler.check(clazz))
-						handler.handle(clazz);
-				}
-			}
-			for (Handler handler : handlers) {
-				handler.terminate();
-			}
-		} catch (Exception e) {
+	public ClassScanner(Visitor... visitors) {
+		for (Visitor visitor : visitors) {
+			if (!this.visitors.contains(visitor))
+				this.visitors.add(visitor);
 		}
 	}
 
-	public interface Handler {
+	public void addVisitors(Visitor... visitors) {
+		for (Visitor visitor : visitors) {
+			if (!this.visitors.contains(visitor))
+				this.visitors.add(visitor);
+		}
+	}
+
+	/**
+	 * Scan the class path for candidate components.
+	 * 
+	 * @param basePackage
+	 *            the package to check for annotated classes
+	 * @return a corresponding Set of autodetected bean definitions
+	 */
+	public void findCandidateComponents(String basePackage) {
+		try {
+			String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/" + DEFAULT_RESOURCE_PATTERN;
+			Resource[] resources = this.resourcePatternResolver.getResources(packageSearchPath);
+			boolean traceEnabled = logger.isTraceEnabled();
+			for (Visitor visitor : visitors) {
+				visitor.initialize();
+			}
+
+			for (Resource resource : resources) {
+				if (traceEnabled) {
+					logger.trace("Scanning " + resource);
+				}
+				if (resource.isReadable()) {
+					try {
+						MetadataReader metadataReader = this.metadataReaderFactory.getMetadataReader(resource);
+						ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
+						sbd.setResource(resource);
+						sbd.setSource(resource);
+						for (Visitor visitor : visitors) {
+							if (visitor.check(sbd))
+								visitor.visit(sbd);
+						}
+					} catch (Throwable ex) {
+						throw new BeanDefinitionStoreException("Failed to read candidate component class: " + resource, ex);
+					}
+				}
+			}
+
+			for (Visitor visitor : visitors) {
+				visitor.terminate();
+			}
+		} catch (IOException ex) {
+			throw new BeanDefinitionStoreException("I/O failure during classpath scanning", ex);
+		}
+	}
+
+	public interface Visitor {
 		void initialize();
 
-		boolean check(Class<?> clazz);
+		boolean check(BeanDefinition beanDefinition);
 
-		void handle(Class<?> clazz);
+		void visit(BeanDefinition beanDefinition);
 
 		void terminate();
 	}
