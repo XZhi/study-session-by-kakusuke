@@ -48,14 +48,7 @@ public class ClassScanner {
 		}
 	}
 
-	/**
-	 * Scan the class path for candidate components.
-	 * 
-	 * @param basePackage
-	 *            the package to check for annotated classes
-	 * @return a corresponding Set of autodetected bean definitions
-	 */
-	public void findCandidateComponents(String basePackage) {
+	public void scan() {
 		try {
 			String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/" + DEFAULT_RESOURCE_PATTERN;
 			Resource[] resources = this.resourcePatternResolver.getResources(packageSearchPath);
