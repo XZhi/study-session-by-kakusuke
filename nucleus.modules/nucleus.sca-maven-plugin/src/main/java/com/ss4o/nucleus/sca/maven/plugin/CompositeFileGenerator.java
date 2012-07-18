@@ -107,7 +107,7 @@ public class CompositeFileGenerator implements Visitor {
 		for (String composite : compositeSet) {
 			String shortName = ClassUtils.getShortName(composite);
 			sb.append("<component name=\"" + shortName + "Component\">");
-			sb.append("<implementation.java class=\"" + composite + "TuscanyImpl\"/>");
+			sb.append("<implementation.java class=\"" + composite + "SCAProxy\"/>");
 			sb.append("</component>");
 		}
 		sb.append("</composite>");
