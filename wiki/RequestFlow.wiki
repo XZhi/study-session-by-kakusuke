@@ -4,14 +4,9 @@
     # JSP / XHTML
   # HTTP post / get _(Request Layer)_
     # HTML Form Submit / URL direct / javascript-Ajax submit
-  # Web Application _(Presentation Layer)_
-    # Servlet Filter
-    # Web Application Interceptor
-    # Web Application Action
-  # Web Service _(Interface Layer)_
+  # Service Provider _(Interface Layer)_
     # Servlet filter
-    # Web Service Interceptor
-    # Web Service Operation
+    # Protocol Converter
   # Business Service _(Business Process Layer)_
     # Business Service Interceptor
     # Business Service
