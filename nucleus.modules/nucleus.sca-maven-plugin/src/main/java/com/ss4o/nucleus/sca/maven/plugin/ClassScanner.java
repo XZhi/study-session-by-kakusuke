@@ -35,10 +35,7 @@ public class ClassScanner {
 	private MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(this.resourcePatternResolver);
 
 	public ClassScanner(Visitor... visitors) {
-		for (Visitor visitor : visitors) {
-			if (!this.visitors.contains(visitor))
-				this.visitors.add(visitor);
-		}
+		addVisitors(visitors);
 	}
 
 	public void addVisitors(Visitor... visitors) {
