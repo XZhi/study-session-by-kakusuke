@@ -12,7 +12,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<nucleus.junit.version>[4.10,)</nucleus.junit.version>
-		<nucleus.spring.version>3.1.1.RELEASE</nucleus.spring.version>
+		<nucleus.spring.version>3.2.1.RELEASE</nucleus.spring.version>
+		<nucleus.tuscany.version>2.0</nucleus.tuscany.version>
 	</properties>
 
 	<build>
