@@ -20,7 +20,7 @@ public class NucleusServletContextListener implements ServletContextListener {
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		AbstractNucleusSCAProxy.setApplicationContext((ApplicationContext)sce.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE));
+		NucleusContext.setApplicationContext((ApplicationContext)sce.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE));
 	}
 
 	/* (non-Javadoc)

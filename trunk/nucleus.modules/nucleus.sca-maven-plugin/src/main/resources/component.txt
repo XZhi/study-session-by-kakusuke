@@ -1,0 +1,6 @@
+	<component name="${interface}Component">
+		<implementation.java class="${package}sca.${interface}Impl"/>
+		<service name="${interface}">
+			${bindings}
+		</service>
+	</component>

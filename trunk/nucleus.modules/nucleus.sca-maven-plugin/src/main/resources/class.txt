@@ -1,0 +1,9 @@
+package ${package}sca;
+
+import com.ss4o.nucleus.core.NucleusContext;
+import ${package}${interface};
+${imports}
+
+public class ${interface}Impl implements ${interface} {
+${methods}
+}
