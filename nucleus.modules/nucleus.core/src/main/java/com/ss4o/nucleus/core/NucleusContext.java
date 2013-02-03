@@ -20,8 +20,8 @@ public abstract class NucleusContext {
 		return applicationContext;
 	}
 	
-	protected static RuntimeException transformException(Exception ex) {
+	protected static void parseException(Exception ex) {
 		//TODO Implementation
-		return new RuntimeException(ex);
+		throw new RuntimeException(ex);
 	}
 }
