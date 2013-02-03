@@ -2,6 +2,6 @@
 		try {
 			return NucleusContext.getApplicationContext().getBean(${interface}.class).${name}(${arguments}); 
 		} catch (Exception ex) {
-			throw NucleusContext.transformException(ex);
+			NucleusContext.parseException(ex);
 		}
 	}

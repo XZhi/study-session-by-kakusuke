@@ -11,7 +11,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<nucleus.junit.version>[4.10,)</nucleus.junit.version>
+		<nucleus.junit.version>[4.11,)</nucleus.junit.version>
 		<nucleus.spring.version>3.2.1.RELEASE</nucleus.spring.version>
 		<nucleus.tuscany.version>2.0</nucleus.tuscany.version>
 	</properties>
@@ -43,5 +43,6 @@
 		<module>nucleus.core</module>
 		<module>nucleus.sca</module>
 		<module>nucleus.sca-maven-plugin</module>
+		<module>nucleus.sca.controller</module>
 	</modules>
 </project>
