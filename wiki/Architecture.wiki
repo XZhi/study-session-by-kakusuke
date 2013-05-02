@@ -14,7 +14,7 @@
       # Component#validate() ＊２
       # Component#select() ＊２
     * ＊１…個々のマッピング処理にて呼び出す。
-    * ＊２…フレームワークの中のループ処理にて呼び出す。
+    * ＊２…抽象クラスの中のループ処理にて呼び出す。
   # コンポーネント層
     * 更新用コンポーネントの場合、以下のメソッドを定義する。
       # void setCondition(Condition condition) ＊３
