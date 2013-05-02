@@ -1,4 +1,22 @@
 = 実装方針(編集中) =
+  * 各レイヤーごとに以下のような記載だけすれば実装可能なフレームワークを作成する。
+  # サービス層
+    * 更新処理の場合、以下のメソッド順、指定したコンポーネント順に呼び出す。
+      # void validation(Validatable target)
+      # Model loadData(Condition condition)
+      # void check(Model model)
+      # void update(Model model)
+    * 照会処理の場合、以下のメソッド順、指定したコンポーネント順に呼び出す。
+      # void validation(Validatable target)
+      # Model loadData(Condition condition)
+    * 各メソッドを呼び出す前後に、マッピング処理を呼び出す。
 
-サービス層は<a href="http://ja.wikipedia.org/wiki/Template_Method_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3">Template Methodパターン</a>で処理を定型的に行い、<a href="http://ja.wikipedia.org/wiki/Strategy_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3">Strategyパターン</a>＆<a href="http://ja.wikipedia.org/wiki/Iterator_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3">Iteratorパターン</a>にてコンポーネント層の呼び出しを行う。
-以下にイメージを示す。
+  # コンポーネント層
+    * 更新用コンポーネントの場合、以下のメソッドを定義する。
+      # void validation(Validatable target)
+      # Model loadData(Condition condition)
+      # void check(Model model)
+      # void update(Model model)
+    * 参照専用コンポーネントの場合、以下のメソッドを定義する。
+      # void validation(Validatable target)
+      # Model loadData(Condition condition)
