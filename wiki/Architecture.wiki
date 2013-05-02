@@ -15,17 +15,17 @@
       # Component#select() ＊２
     * ＊１…個々のマッピング処理にて呼び出す。
     * ＊２…フレームワークの中のループ処理にて呼び出す。
-
   # コンポーネント層
     * 更新用コンポーネントの場合、以下のメソッドを定義する。
-      # void setCondition(Condition condition)
+      # void setCondition(Condition condition) ＊３
       # int validate()
       # int select()
-      # void setCheck(Check check)
+      # void setCheck(Check check) ＊３
       # int check()
-      # void setUpdatable(Updatable updatable)
+      # void setUpdatable(Updatable updatable) ＊３
       # int update()
     * 参照専用コンポーネントの場合、以下のメソッドを定義する。
-      # void setCondition(Condition condition)
+      # void setCondition(Condition condition) ＊３
       # int validate()
       # int select()
+    * ＊３…抽象クラスにて定義する。
